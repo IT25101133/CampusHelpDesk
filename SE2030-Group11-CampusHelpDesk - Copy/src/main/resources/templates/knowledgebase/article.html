@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${article.title})}"></head>
+<body>
+<div class="app-shell" th:if="${currentUser != null}">
+    <aside th:replace="~{fragments/layout :: sidebar('kb')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar}"></header>
+        <main class="page">
+            <p><a th:href="@{/knowledgebase}">← All articles</a></p>
+            <h1 th:text="${article.title}">Title</h1>
+            <p class="hint">
+                <span th:if="${article.category != null}" th:text="${article.category.name}">IT</span>
+                · <span th:text="${article.viewCount} + ' views'">0</span>
+            </p>
+            <div class="card">
+                <p style="white-space: pre-wrap;" th:text="${article.content}">content</p>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="landing" th:if="${currentUser == null}">
+    <p><a th:href="@{/knowledgebase}">← All articles</a></p>
+    <h1 th:text="${article.title}">Title</h1>
+    <div class="card">
+        <p style="white-space: pre-wrap;" th:text="${article.content}">content</p>
+    </div>
+    <p><a class="btn btn-primary" th:href="@{/tickets/new}">Still stuck? Open a ticket</a></p>
+</div>
+</body>
+</html>

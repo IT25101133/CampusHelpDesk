@@ -1,8 +1,10 @@
 package com.sliit.helpdesk.knowledgebase.service;
 
+// Knowledge Base Service is part of the campus help desk service code.
+
 import com.sliit.helpdesk.knowledgebase.model.KbArticle;
 import com.sliit.helpdesk.knowledgebase.model.KbCategory;
-import com.sliit.helpdesk.knowledgebase.repository.KbArticleRepository;
+import com.sliit.helpdesk.knowledgebase.repository.ArticleRepository;
 import com.sliit.helpdesk.knowledgebase.repository.KbCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +14,10 @@ import java.util.List;
 @Service
 public class KnowledgeBaseService {
 
-    private final KbArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
     private final KbCategoryRepository categoryRepository;
 
-    public KnowledgeBaseService(KbArticleRepository articleRepository, KbCategoryRepository categoryRepository) {
+    public KnowledgeBaseService(ArticleRepository articleRepository, KbCategoryRepository categoryRepository) {
         this.articleRepository = articleRepository;
         this.categoryRepository = categoryRepository;
     }

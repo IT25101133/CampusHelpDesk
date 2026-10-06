@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Tickets')}"></head>
+<body>
+<div class="app-shell">
+    <aside th:replace="~{fragments/layout :: sidebar('tickets')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar}"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1 th:text="${studentView} ? 'My tickets' : 'All tickets'">Tickets</h1>
+                    <p>Ticket Submission &amp; Tracking — Kodagoda</p>
+                </div>
+                <a class="btn btn-primary" th:href="@{/tickets/new}">New ticket</a>
+            </div>
+            <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
+            <div class="table-wrap" th:if="${!tickets.isEmpty()}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Updated</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ticket : ${tickets}">
+                        <td><a th:href="@{/tickets/{id}(id=${ticket.id})}" th:text="${ticket.ticketNumber}">HD-1</a></td>
+                        <td th:text="${ticket.title}">Title</td>
+                        <td th:text="${ticket.category.name}">IT</td>
+                        <td><span class="pill" th:classappend="${ticket.priority}" th:text="${ticket.priority}">MED</span></td>
+                        <td><span class="pill" th:classappend="${ticket.status}" th:text="${#strings.replace(ticket.status, '_', ' ')}">OPEN</span></td>
+                        <td th:text="${#temporals.format(ticket.updatedAt, 'dd MMM yyyy HH:mm')}">date</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card empty" th:if="${tickets.isEmpty()}">
+                <p>No tickets yet. Open one from New ticket, or check the knowledge base first.</p>
+            </div>
+        </main>
+    </div>
+</div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
