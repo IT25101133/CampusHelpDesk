@@ -15,11 +15,6 @@ spring:
       data-locations: classpath:db/seed.sql
 
 app:
-  assignment:
-    strategy: category-based
   jwt:
     secret: CampusHelpDeskSecretKeyForHS256TokensMustBe32B!
     expiration-ms: 3600000
-  uploads:
-    dir: ${java.io.tmpdir}/helpdesk-uploads
-    max-file-size-mb: ${MAX_TICKET_ATTACHMENT_MB:5}

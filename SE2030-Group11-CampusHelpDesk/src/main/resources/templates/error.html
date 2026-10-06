@@ -3,20 +3,9 @@
 <head th:replace="~{fragments/layout :: head('Error')}"></head>
 <body>
 <div class="landing">
-    <nav class="landing-nav">
-        <a class="brand" th:href="@{/}" style="color: inherit;">
-            <img th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="36" height="36" style="border-radius: 10px;"/>
-            <span>
-                <span class="brand-word">Campus Help Desk</span>
-                <span class="brand-sub">SE2030 Group 11</span>
-            </span>
-        </a>
-    </nav>
-    <div style="margin-top: 3rem;">
-        <h1 th:text="${status != null} ? 'Error ' + ${status} : 'Something went wrong'">Something went wrong</h1>
-        <p th:text="${message != null and !message.isBlank()} ? ${message} : (${error} ?: 'The requested page or resource could not be loaded.')">Unexpected error</p>
-        <p style="margin-top: 1.5rem;"><a class="btn btn-primary" th:href="@{/}">Back to home</a></p>
-    </div>
+    <h1>Something went wrong</h1>
+    <p th:text="${error}">Unexpected error</p>
+    <p><a class="btn btn-primary" th:href="@{/}">Back to home</a></p>
 </div>
 </body>
 </html>

@@ -3,12 +3,83 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SLIIT Services Pro</title>
-    <link rel="stylesheet" href="/css/pro.css"/>
-    <script>location.replace("/welcome");</script>
-    <meta http-equiv="refresh" content="0; url=/welcome"/>
+    <title>Campus Help Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
-<body class="login-page">
-<p style="padding:2rem;color:#9CA3AF">Opening the Welcome Portal… <a href="/welcome">Continue</a></p>
+<body>
+<div id="login-screen">
+    <div class="login-card">
+        <div class="login-brand">
+            <span class="login-mark">CH</span>
+            <div>
+                <h1>Campus Help Desk</h1>
+                <p>SLIIT · SE2030 Group 11</p>
+            </div>
+        </div>
+        <p class="login-lede">Choose a role to sign in to the help desk.</p>
+        <div class="role-grid">
+            <button type="button" class="role-btn" data-role="STUDENT">
+                <span class="role-ico">ST</span>
+                <strong>Student</strong>
+                <small>Submit and track tickets</small>
+            </button>
+            <button type="button" class="role-btn" data-role="LECTURER">
+                <span class="role-ico">LE</span>
+                <strong>Lecturer</strong>
+                <small>Academic requests</small>
+            </button>
+            <button type="button" class="role-btn" data-role="STAFF">
+                <span class="role-ico">SF</span>
+                <strong>Staff</strong>
+                <small>Handle assigned work</small>
+            </button>
+            <button type="button" class="role-btn" data-role="ADMIN">
+                <span class="role-ico">AD</span>
+                <strong>Admin</strong>
+                <small>Full operations</small>
+            </button>
+            <button type="button" class="role-btn" data-role="DEPT_HEAD">
+                <span class="role-ico">DH</span>
+                <strong>Dept Head</strong>
+                <small>Reports and oversight</small>
+            </button>
+        </div>
+        <p id="login-error" class="login-error" hidden></p>
+        <p class="login-hint">Demo password for every seeded account: <code>password</code></p>
+    </div>
+</div>
+
+<div id="app-shell" hidden>
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <span class="brand-mark">CH</span>
+            <div>
+                <div class="brand-word">Campus Help Desk</div>
+                <div class="brand-sub">SE2030 · Group 11</div>
+            </div>
+        </div>
+        <nav id="sidebar-nav" class="sidebar-nav"></nav>
+        <div class="sidebar-user">
+            <div>
+                <strong id="sidebar-name">User</strong>
+                <small id="sidebar-role">ROLE</small>
+            </div>
+            <button type="button" class="btn btn-ghost btn-small" id="logout-btn">Sign out</button>
+        </div>
+    </aside>
+    <div class="workspace">
+        <header class="topbar">
+            <h2 id="page-title">Dashboard</h2>
+            <span id="unread-pill" class="pill" hidden>0 new</span>
+        </header>
+        <main id="viewport" class="viewport"></main>
+    </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/js/app.js"></script>
 </body>
 </html>

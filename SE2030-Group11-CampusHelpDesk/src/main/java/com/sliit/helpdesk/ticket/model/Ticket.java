@@ -1,8 +1,5 @@
 package com.sliit.helpdesk.ticket.model;
 
-// Ticket is part of the campus help desk model code.
-
-import com.sliit.helpdesk.auth.model.Role;
 import com.sliit.helpdesk.auth.model.User;
 import com.sliit.helpdesk.category.model.Category;
 import com.sliit.helpdesk.notification.model.Notification;
@@ -62,19 +59,9 @@ public class Ticket {
     @JoinColumn(name = "created_by")
     private User requester;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "submitter_role", length = 20)
-    private Role submitterRole;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to")
     private User assignee;
-
-    @Column(name = "delete_requested")
-    private Boolean deleteRequested = Boolean.FALSE;
-
-    @Column(name = "delete_approved")
-    private Boolean deleteApproved = Boolean.FALSE;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -84,9 +71,6 @@ public class Ticket {
 
     @Column(name = "resolved_at")
     private LocalDateTime resolvedAt;
-
-    @Column(name = "sla_due_at")
-    private LocalDateTime slaDueAt;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TicketAttachment> attachments = new ArrayList<>();
@@ -100,26 +84,8 @@ public class Ticket {
     @PrePersist
     void onCreate() {
         LocalDateTime now = LocalDateTime.now();
-        if (createdAt == null) {
-            createdAt = now;
-        }
-        if (updatedAt == null) {
-            updatedAt = now;
-        }
-        if (deleteRequested == null) {
-            deleteRequested = Boolean.FALSE;
-        }
-        if (deleteApproved == null) {
-            deleteApproved = Boolean.FALSE;
-        }
-    }
-
-    public boolean isDeleteRequested() {
-        return Boolean.TRUE.equals(deleteRequested);
-    }
-
-    public boolean isDeleteApproved() {
-        return Boolean.TRUE.equals(deleteApproved);
+        createdAt = now;
+        updatedAt = now;
     }
 
     @PreUpdate
