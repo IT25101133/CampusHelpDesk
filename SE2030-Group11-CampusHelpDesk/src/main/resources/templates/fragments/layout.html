@@ -11,7 +11,7 @@
 </head>
 <aside class="sidebar" th:fragment="sidebar(active)">
     <a class="brand" th:href="@{/dashboard}">
-        <img th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="36" height="36" style="border-radius: 10px;"/>
+        <span class="brand-mark">CH</span>
         <span>
             <span class="brand-word">Campus Help Desk</span>
             <span class="brand-sub">SE2030 · Group 11</span>
@@ -32,10 +32,7 @@
         <div class="nav-group" sec:authorize="hasAnyRole('STAFF','ADMIN','LECTURER','DEPT_HEAD')">
             <div class="nav-label">Operations</div>
             <a class="nav-link" th:classappend="${active == 'categories'} ? ' active'" th:href="@{/categories}">Categories</a>
-            <a class="nav-link" th:classappend="${active == 'users'} ? ' active'" th:href="@{/users}"
-               sec:authorize="hasRole('ADMIN')">Users</a>
             <a class="nav-link" th:classappend="${active == 'reports'} ? ' active'" th:href="@{/reports}">Reports</a>
-            <a class="nav-link" th:href="@{/reports/saved}" sec:authorize="hasRole('ADMIN')">Saved reports</a>
         </div>
     </nav>
 </aside>

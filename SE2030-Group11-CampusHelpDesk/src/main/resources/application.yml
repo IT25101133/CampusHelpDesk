@@ -3,41 +3,30 @@ spring:
     name: campus-helpdesk
 
   datasource:
-    url: "jdbc:sqlserver://localhost:1433;databaseName=campus_helpdesk;encrypt=true;trustServerCertificate=true"
-    username: ${APP_DB_USER:sa}
-    password: "${APP_DB_PASSWORD:Shenon@0424}"
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:mysql://localhost:3306/campus_helpdesk
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    database: sql_server
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.SQLServerDialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
     open-in-view: true
 
   thymeleaf:
     cache: false
 
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-
 server:
-  port: 8081
+  port: 8080
 
 app:
   name: Campus Help Desk
   group: SE2030 Group 11
-  assignment:
-    strategy: ${ASSIGNMENT_STRATEGY:category-based}
-  uploads:
-    dir: src/main/resources/static/uploads
-    max-file-size-mb: ${MAX_TICKET_ATTACHMENT_MB:5}
   jwt:
     secret: ${JWT_SECRET:CampusHelpDeskSecretKeyForHS256TokensMustBe32B!}
     expiration-ms: 86400000

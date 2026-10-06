@@ -1,7 +1,5 @@
 package com.sliit.helpdesk.knowledgebase.model;
 
-// Kb Category is part of the campus help desk model code.
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -15,7 +15,6 @@
                 <a class="btn btn-primary" th:href="@{/categories/new}" sec:authorize="hasAnyRole('ADMIN','DEPT_HEAD')">New category</a>
             </div>
             <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
-            <div class="flash flash-err" th:if="${error}" th:text="${error}"></div>
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -35,11 +34,6 @@
                         <td th:text="${cat.slaHours + 'h'}">24h</td>
                         <td>
                             <a th:href="@{/categories/{id}/edit(id=${cat.id})}" sec:authorize="hasAnyRole('ADMIN','DEPT_HEAD')">Edit</a>
-                            <form th:action="@{/categories/{id}/delete(id=${cat.id})}" method="post" style="display:inline"
-                                  sec:authorize="hasAnyRole('ADMIN','DEPT_HEAD')"
-                                  onsubmit="return confirm('Delete this category?');">
-                                <button class="btn btn-ghost btn-small" type="submit">Delete</button>
-                            </form>
                         </td>
                     </tr>
                     </tbody>

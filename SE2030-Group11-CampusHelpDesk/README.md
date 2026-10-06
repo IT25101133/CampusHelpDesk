@@ -15,43 +15,16 @@ SE2030 Group 11 — a Spring Boot campus ticketing system for SLIIT. Students op
 
 ## Run locally
 
-Requirements: **JDK 17+**, **Maven 3.9+**, and **MySQL** running on `localhost:3306`.
+Requirements: **JDK 17** and **Maven 3.9+**.
 
-Create the database once (Workbench or MySQL CLI):
-
-```sql
-CREATE DATABASE IF NOT EXISTS campus_helpdesk;
-```
-
-If `mvn` is not recognized on Windows, add Maven to PATH for that terminal:
-
-```powershell
-$env:Path = "C:\Users\user\apache-maven-3.9.9\bin;" + $env:Path
-cd E:\SE2030-Group11-CampusHelpDesk
-```
-
-Set MySQL credentials if they are not `root` with an empty password:
-
-```powershell
-$env:DB_USER = "root"
-$env:DB_PASS = "yourpassword"
-```
-
-Then start the app:
-
-```powershell
+```bash
 mvn spring-boot:run
 ```
 
 Open [http://localhost:8080](http://localhost:8080).
 
-### Test login
-
-Created automatically on first start:
-
-| Email | Password | Role |
-| --- | --- | --- |
-| `test@sliit.lk` | `Test1234` | Student |
+H2 console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)  
+JDBC URL: `jdbc:h2:file:./data/campus_helpdesk` · user `sa` · empty password.
 
 ### Demo accounts
 

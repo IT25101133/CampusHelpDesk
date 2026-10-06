@@ -22,35 +22,8 @@
             <div class="grid-2">
                 <section class="card">
                     <p th:text="${ticket.description}">body</p>
-                    <form th:action="@{/tickets/{id}(id=${ticket.id})}" method="post" th:if="${canEdit}">
-                        <div class="field">
-                            <label>Title</label>
-                            <input name="title" th:value="${ticket.title}" maxlength="200" required/>
-                        </div>
-                        <div class="field">
-                            <label>Description</label>
-                            <textarea name="description" th:text="${ticket.description}" required maxlength="4000"></textarea>
-                        </div>
-                        <div class="field">
-                            <label>Category</label>
-                            <select name="categoryId">
-                                <option th:each="cat : ${categories}" th:value="${cat.id}"
-                                        th:selected="${ticket.category != null and ticket.category.id == cat.id}"
-                                        th:text="${cat.name}">IT Support</option>
-                            </select>
-                        </div>
-                        <div class="field" th:if="${canManage}">
-                            <label>Priority</label>
-                            <select name="priority">
-                                <option th:each="p : ${T(com.sliit.helpdesk.ticket.model.TicketPriority).values()}"
-                                        th:value="${p}" th:selected="${p == ticket.priority}" th:text="${p}">MEDIUM</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-ghost btn-small" type="submit">Save changes</button>
-                    </form>
                     <p class="hint">
                         Opened by <span th:text="${ticket.requester.fullName}">user</span>
-                        (<span th:text="${ticket.submitterRole != null} ? ${#strings.capitalize(#strings.toLowerCase(ticket.submitterRole.name()))} : '—'">Student</span>)
                         on <span th:text="${#temporals.format(ticket.createdAt, 'dd MMM yyyy HH:mm')}">date</span>
                     </p>
                     <h3>Conversation</h3>
@@ -60,25 +33,18 @@
                         <small th:text="${#temporals.format(comment.createdAt, 'dd MMM HH:mm')}">time</small>
                         <p th:text="${comment.body}">text</p>
                     </div>
-                    <form th:action="@{/tickets/{id}/comments(id=${ticket.id})}" method="post" th:if="${canComment}">
+                    <form th:action="@{/tickets/{id}/comments(id=${ticket.id})}" method="post">
                         <div class="field">
                             <label>Reply</label>
-                            <textarea name="body" required maxlength="4000"></textarea>
+                            <textarea name="body" required></textarea>
                         </div>
                         <button class="btn btn-primary" type="submit">Post reply</button>
                     </form>
                 </section>
                 <aside>
                     <div class="card">
-                        <p><strong>Category</strong><br/>
-                            <span th:text="${ticket.category != null} ? ${ticket.category.name} : '—'">IT</span>
-                        </p>
-                        <p><strong>Department</strong><br/>
-                            <span th:text="${ticket.category != null and ticket.category.department != null} ? ${ticket.category.department} : '—'">IT Services</span>
-                        </p>
-                        <p><strong>SLA</strong><br/>
-                            <span th:text="${ticket.category != null} ? ${ticket.category.slaHours + ' hours'} : '—'">48</span>
-                        </p>
+                        <p><strong>Category</strong><br/><span th:text="${ticket.category.name}">IT</span></p>
+                        <p><strong>SLA</strong><br/><span th:text="${ticket.category.slaHours + ' hours'}">48</span></p>
                         <p><strong>Assignee</strong><br/>
                             <span th:text="${ticket.assignee != null} ? ${ticket.assignee.fullName} : 'Unassigned'">Staff</span>
                         </p>
@@ -105,77 +71,6 @@
                                 </select>
                             </div>
                             <button class="btn btn-ghost btn-small" type="submit">Assign</button>
-                        </form>
-                        <form th:action="@{/tickets/{id}/category(id=${ticket.id})}" method="post">
-                            <div class="field">
-                                <label>Department / category</label>
-                                <select name="categoryId">
-                                    <option th:each="cat : ${categories}" th:value="${cat.id}"
-                                            th:selected="${ticket.category != null and ticket.category.id == cat.id}"
-                                            th:text="${cat.name + (cat.department != null and !cat.department.isEmpty() ? ' — ' + cat.department : '')}">IT</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-ghost btn-small" type="submit">Update category</button>
-                        </form>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canClose}">
-                        <form th:action="@{/tickets/{id}/close(id=${ticket.id})}" method="post">
-                            <button class="btn btn-primary" type="submit">Close ticket</button>
-                        </form>
-                    </div>
-                    <div class="card resolution-panel" style="margin-top: 1rem;" th:if="${canConfirmClose}">
-                        <h3>This ticket is resolved</h3>
-                        <p class="hint">Confirm and close it if the issue is fixed, or reopen it if it is not. If you do nothing for 5 days, it closes on its own.</p>
-                        <div class="ticket-actions">
-                            <form th:action="@{/tickets/{id}/confirm-close(id=${ticket.id})}" method="post">
-                                <button class="btn btn-primary" type="submit">Confirm &amp; Close</button>
-                            </form>
-                            <form th:action="@{/tickets/{id}/reopen-resolved(id=${ticket.id})}" method="post" th:if="${canReopenResolved}">
-                                <button class="btn btn-ghost" type="submit">Reopen</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canStaffClose}">
-                        <form th:action="@{/tickets/{id}/staff-close(id=${ticket.id})}" method="post">
-                            <div class="field">
-                                <label>Reason for closing</label>
-                                <textarea name="reason" required maxlength="500" placeholder="Spam, duplicate, or confirmed outside the portal"></textarea>
-                            </div>
-                            <button class="btn btn-primary" type="submit">Close resolved ticket</button>
-                        </form>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canReopen}">
-                        <form th:action="@{/tickets/{id}/reopen(id=${ticket.id})}" method="post">
-                            <div class="field">
-                                <label>Reason for reopening</label>
-                                <textarea name="reason" required maxlength="500" placeholder="Short reason"></textarea>
-                            </div>
-                            <button class="btn btn-primary" type="submit">Reopen ticket</button>
-                        </form>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${closedNotice != null}">
-                        <p class="hint" th:text="${closedNotice}">This ticket is closed.</p>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canDelete}">
-                        <form th:action="@{/tickets/{id}/withdraw(id=${ticket.id})}" method="post"
-                              onsubmit="return confirm('Delete this ticket?');">
-                            <button class="btn btn-ghost" type="submit"
-                                    th:text="${openPhase} ? 'Withdraw ticket' : 'Delete ticket'">Withdraw ticket</button>
-                        </form>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canRequestDelete}">
-                        <form th:action="@{/tickets/{id}/delete-request(id=${ticket.id})}" method="post">
-                            <button class="btn btn-ghost" type="submit">Request deletion</button>
-                        </form>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;"
-                         th:if="${ticket.deleteRequested and !ticket.deleteApproved and !canManage}">
-                        <p class="hint">Deletion requested — waiting for help-desk staff approval.</p>
-                    </div>
-                    <div class="card" style="margin-top: 1rem;" th:if="${canApproveDelete}">
-                        <form th:action="@{/tickets/{id}/delete-approval(id=${ticket.id})}" method="post">
-                            <p class="hint">The submitter asked to delete this ticket.</p>
-                            <button class="btn btn-primary" type="submit">Approve deletion</button>
                         </form>
                     </div>
                 </aside>

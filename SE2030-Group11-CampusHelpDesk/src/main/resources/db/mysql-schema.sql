@@ -37,10 +37,6 @@ CREATE TABLE tickets (
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     resolved_at     TIMESTAMP NULL,
-    sla_due_at      TIMESTAMP NULL,
-    submitter_role  VARCHAR(20),
-    delete_requested BOOLEAN DEFAULT FALSE,
-    delete_approved BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (category_id) REFERENCES ticket_categories(category_id),
     FOREIGN KEY (created_by)  REFERENCES users(user_id),
     FOREIGN KEY (assigned_to) REFERENCES users(user_id)
@@ -69,11 +65,9 @@ CREATE TABLE ticket_comments (
 
 CREATE TABLE notifications (
     notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id         BIGINT NULL,
-    recipient_role  VARCHAR(20),
+    user_id         BIGINT NOT NULL,
     ticket_id       BIGINT,
     message         VARCHAR(300) NOT NULL,
-    link            VARCHAR(255),
     is_read         BOOLEAN DEFAULT FALSE,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id)   REFERENCES users(user_id),
@@ -108,18 +102,4 @@ CREATE TABLE audit_logs (
     entity_id       BIGINT,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE reports (
-    report_id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name                 VARCHAR(150) NOT NULL,
-    department           VARCHAR(100),
-    status               VARCHAR(24),
-    priority             VARCHAR(16),
-    ticket_count         BIGINT,
-    resolved_count       BIGINT,
-    avg_resolution_hours DOUBLE,
-    created_by           BIGINT,
-    created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(user_id)
 );

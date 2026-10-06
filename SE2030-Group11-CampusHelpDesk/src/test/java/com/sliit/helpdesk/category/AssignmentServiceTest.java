@@ -1,12 +1,10 @@
 package com.sliit.helpdesk.category;
 
-// Assignment Service Test is part of the campus help desk category code.
-
 import com.sliit.helpdesk.auth.model.Role;
 import com.sliit.helpdesk.auth.model.User;
 import com.sliit.helpdesk.auth.repository.UserRepository;
 import com.sliit.helpdesk.category.model.Category;
-import com.sliit.helpdesk.category.service.CategoryBasedAssignmentStrategy;
+import com.sliit.helpdesk.category.service.AssignmentService;
 import com.sliit.helpdesk.ticket.model.Ticket;
 import com.sliit.helpdesk.ticket.model.TicketStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,11 +25,11 @@ class AssignmentServiceTest {
 
     @Mock
     private UserRepository userRepository;
-    private CategoryBasedAssignmentStrategy assignmentStrategy;
+    private AssignmentService assignmentService;
 
     @BeforeEach
     void setUp() {
-        assignmentStrategy = new CategoryBasedAssignmentStrategy(userRepository);
+        assignmentService = new AssignmentService(userRepository);
     }
 
     @Test
@@ -39,16 +37,14 @@ class AssignmentServiceTest {
         User staff = new User();
         staff.setId(9L);
         staff.setRole(Role.STAFF);
-        staff.setEnabled(true);
         Category category = new Category();
         category.setDepartment("IT Services");
         Ticket ticket = new Ticket();
         ticket.setStatus(TicketStatus.OPEN);
-        ticket.setCategory(category);
         when(userRepository.findByDepartmentIgnoreCaseAndRoleInOrderByFullNameAsc(eq("IT Services"), anyList()))
                 .thenReturn(List.of(staff));
 
-        assignmentStrategy.assign(ticket);
+        assignmentService.assignDefaultStaff(ticket, category);
 
         assertThat(ticket.getAssignee()).isEqualTo(staff);
         assertThat(ticket.getStatus()).isEqualTo(TicketStatus.IN_PROGRESS);
@@ -58,9 +54,8 @@ class AssignmentServiceTest {
     void assignDefaultStaffLeavesTicketWhenNoAssignee() {
         Ticket ticket = new Ticket();
         ticket.setStatus(TicketStatus.OPEN);
-        ticket.setCategory(new Category());
 
-        assignmentStrategy.assign(ticket);
+        assignmentService.assignDefaultStaff(ticket, new Category());
 
         assertThat(ticket.getAssignee()).isNull();
         assertThat(ticket.getStatus()).isEqualTo(TicketStatus.OPEN);

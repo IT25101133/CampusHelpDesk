@@ -5,7 +5,7 @@
 <div class="landing">
     <nav class="landing-nav">
         <a class="brand" th:href="@{/}" style="color: inherit;">
-            <img th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="36" height="36" style="border-radius: 10px;"/>
+            <span class="brand-mark">CH</span>
             <span>
                 <span class="brand-word">Campus Help Desk</span>
                 <span class="brand-sub">SE2030 Group 11</span>
@@ -23,18 +23,16 @@
             <h1>One desk for labs, LMS, fees, and facilities.</h1>
             <p class="lede">Submit a ticket, track its status, and find answers in the knowledge base before you wait in a queue.</p>
             <p>
-                <a class="btn btn-primary" th:href="@{/register}">Create an account</a>
-                <a class="btn btn-ghost" th:href="@{/welcome}">Sign in to the app</a>
+                <a class="btn btn-primary" th:href="@{/register}">Create a student account</a>
+                <a class="btn btn-ghost" th:href="@{/login}">Staff sign in</a>
             </p>
         </div>
         <div class="card">
             <h3>Demo accounts</h3>
             <p class="hint">Password for all seeded users: <strong>password</strong></p>
-            <p>Student · <code>student@sliit.lk</code></p>
-            <p>Lecturer · <code>lecturer@sliit.lk</code></p>
-            <p>Staff · <code>staff@sliit.lk</code></p>
             <p>Admin · <code>admin@sliit.lk</code></p>
-            <p>Dept Head · <code>head@sliit.lk</code></p>
+            <p>Staff · <code>staff@sliit.lk</code></p>
+            <p>Student · <code>student@sliit.lk</code></p>
         </div>
     </section>
     <section class="modules">

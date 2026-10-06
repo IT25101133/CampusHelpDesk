@@ -1,9 +1,7 @@
 package com.sliit.helpdesk.knowledgebase;
 
-// Knowledge Base Service Test is part of the campus help desk knowledgebase code.
-
 import com.sliit.helpdesk.knowledgebase.model.KbArticle;
-import com.sliit.helpdesk.knowledgebase.repository.ArticleRepository;
+import com.sliit.helpdesk.knowledgebase.repository.KbArticleRepository;
 import com.sliit.helpdesk.knowledgebase.repository.KbCategoryRepository;
 import com.sliit.helpdesk.knowledgebase.service.KnowledgeBaseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class KnowledgeBaseServiceTest {
 
-    @Mock private ArticleRepository articleRepository;
+    @Mock private KbArticleRepository articleRepository;
     @Mock private KbCategoryRepository categoryRepository;
     private KnowledgeBaseService knowledgeBaseService;
 

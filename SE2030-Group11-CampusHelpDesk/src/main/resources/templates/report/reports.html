@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Reports')}"></head>
 <body>
 <div class="app-shell">
@@ -10,12 +10,9 @@
             <div class="page-head">
                 <div>
                     <h1>Operational reports</h1>
-                    <p>Reporting &amp; Dashboard — Jayathilaka</p>
+                    <p>Volume by status, priority, and category.</p>
                 </div>
-                <a class="btn btn-primary" th:href="@{/reports/saved}" sec:authorize="hasRole('ADMIN')">Saved reports</a>
             </div>
-            <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
-            <div class="flash flash-err" th:if="${error}" th:text="${error}"></div>
             <div class="grid-2">
                 <section class="card">
                     <h3>Status</h3>
@@ -37,22 +34,6 @@
             </section>
             <section class="card" style="margin-top: 1rem;">
                 <h3>Recent audit log</h3>
-                <form th:action="@{/reports/audit-logs}" method="post" sec:authorize="hasRole('ADMIN')"
-                      style="margin-bottom: 1rem;">
-                    <div class="field">
-                        <label>Action</label>
-                        <input name="action" required maxlength="200" placeholder="Exported monthly report"/>
-                    </div>
-                    <div class="field">
-                        <label>Entity type</label>
-                        <input name="entityType" placeholder="TICKET"/>
-                    </div>
-                    <div class="field">
-                        <label>Entity ID</label>
-                        <input name="entityId" type="number"/>
-                    </div>
-                    <button class="btn btn-primary btn-small" type="submit">Add audit entry</button>
-                </form>
                 <div class="empty" th:if="${auditLogs.isEmpty()}">No audit events yet.</div>
                 <table th:if="${!auditLogs.isEmpty()}">
                     <thead>
@@ -60,7 +41,6 @@
                         <th>When</th>
                         <th>User</th>
                         <th>Action</th>
-                        <th sec:authorize="hasRole('ADMIN')"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,22 +48,9 @@
                         <td th:text="${#temporals.format(log.createdAt, 'dd MMM yyyy HH:mm')}">date</td>
                         <td th:text="${log.user != null} ? ${log.user.fullName} : 'System'">user</td>
                         <td>
-                            <form th:action="@{/reports/audit-logs/{id}(id=${log.id})}" method="post"
-                                  sec:authorize="hasRole('ADMIN')" style="display:flex; gap:.5rem; align-items:center;">
-                                <input name="action" th:value="${log.action}" required maxlength="200"/>
-                                <input name="entityType" th:value="${log.entityType}"/>
-                                <input name="entityId" type="number" th:value="${log.entityId}"/>
-                                <button class="btn btn-ghost btn-small" type="submit">Save</button>
-                            </form>
-                            <span sec:authorize="!hasRole('ADMIN')" th:text="${log.action}">action</span>
+                            <span th:text="${log.action}">action</span>
                             <span class="hint" th:if="${log.entityType != null}"
                                   th:text="' · ' + ${log.entityType} + ' #' + ${log.entityId}">TICKET</span>
-                        </td>
-                        <td sec:authorize="hasRole('ADMIN')">
-                            <form th:action="@{/reports/audit-logs/{id}/delete(id=${log.id})}" method="post"
-                                  onsubmit="return confirm('Delete this audit entry?');">
-                                <button class="btn btn-ghost btn-small" type="submit">Delete</button>
-                            </form>
                         </td>
                     </tr>
                     </tbody>

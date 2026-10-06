@@ -1,7 +1,5 @@
 package com.sliit.helpdesk.config;
 
-// Security Config Test is part of the campus help desk config code.
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,7 +43,7 @@ class SecurityConfigTest {
     @WithMockUser(roles = "ADMIN")
     void adminRoleCanAccessAdminApi() throws Exception {
         mockMvc.perform(get("/api/admin/users"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -63,79 +61,9 @@ class SecurityConfigTest {
     }
 
     @Test
-    @WithMockUser(roles = "DEPT_HEAD")
-    void deptHeadCanAccessSummaryReport() throws Exception {
-        mockMvc.perform(get("/api/reports/summary"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(roles = "DEPT_HEAD")
-    void deptHeadCannotAccessAuditLogs() throws Exception {
-        mockMvc.perform(get("/api/reports/audit-logs"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void adminCanAccessAuditLogs() throws Exception {
-        mockMvc.perform(get("/api/reports/audit-logs"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     @WithMockUser(roles = "STUDENT")
     void studentCannotAccessReportsApi() throws Exception {
         mockMvc.perform(get("/api/reports/dashboard"))
                 .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void categoryReadIsOpenWithoutAuthentication() throws Exception {
-        mockMvc.perform(get("/api/categories"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(roles = "STUDENT")
-    void studentCannotCreateCategory() throws Exception {
-        mockMvc.perform(post("/api/categories")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Parking\",\"department\":\"Facilities\",\"slaHours\":24}"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void adminCanCreateCategory() throws Exception {
-        mockMvc.perform(post("/api/categories")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Security Probe Category\",\"department\":\"Library\",\"slaHours\":36}"))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    @WithMockUser(username = "student@sliit.lk", roles = "STUDENT")
-    void studentCanBrowseKnowledgeBaseArticles() throws Exception {
-        mockMvc.perform(get("/api/kb/articles").param("search", "password"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "student@sliit.lk", roles = "STUDENT")
-    void studentCannotCreateKnowledgeBaseArticle() throws Exception {
-        mockMvc.perform(post("/api/kb/articles")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\":\"WiFi help\",\"content\":\"Restart the campus access point.\"}"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser(username = "staff@sliit.lk", roles = "STAFF")
-    void staffCanCreateKnowledgeBaseArticle() throws Exception {
-        mockMvc.perform(post("/api/kb/articles")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\":\"Connect to campus WiFi\",\"content\":\"Use eduroam with your student email.\"}"))
-                .andExpect(status().isCreated());
     }
 }

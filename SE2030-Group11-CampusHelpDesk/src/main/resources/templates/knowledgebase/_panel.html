@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="kb-panel" th:fragment="panel">
     <div class="page-head">
@@ -7,11 +7,7 @@
             <h1>Knowledge base</h1>
             <p>Knowledge Base — Weerasekara</p>
         </div>
-        <a class="btn btn-primary" th:href="@{/knowledgebase/new}"
-           sec:authorize="hasAnyRole('STAFF','ADMIN')">New article</a>
     </div>
-    <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
-    <div class="flash flash-err" th:if="${error}" th:text="${error}"></div>
     <form class="form-card" method="get" th:action="@{/knowledgebase}" style="margin-bottom: 1.2rem;">
         <div class="field">
             <label>Search articles</label>
@@ -30,23 +26,8 @@
         </section>
         <section class="card faq">
             <h3>Categories</h3>
-            <p th:each="cat : ${kbCategories}">
-                <span th:text="${cat.name}">Accounts</span>
-                <form th:action="@{/knowledgebase/categories/{id}/delete(id=${cat.id})}" method="post"
-                      style="display:inline" sec:authorize="hasAnyRole('STAFF','ADMIN')"
-                      onsubmit="return confirm('Delete this category?');">
-                    <button class="btn btn-ghost btn-small" type="submit">Delete</button>
-                </form>
-            </p>
+            <p th:each="cat : ${kbCategories}" th:text="${cat.name}">Accounts</p>
             <p class="hint" th:if="${kbCategories.isEmpty()}">No categories yet.</p>
-            <form th:action="@{/knowledgebase/categories}" method="post" th:object="${categoryForm}"
-                  sec:authorize="hasAnyRole('STAFF','ADMIN')" style="margin-top: 1rem;">
-                <div class="field">
-                    <label>New category</label>
-                    <input th:field="*{name}" required maxlength="100" placeholder="Accounts &amp; access"/>
-                </div>
-                <button class="btn btn-ghost btn-small" type="submit">Add category</button>
-            </form>
         </section>
     </div>
 </div>

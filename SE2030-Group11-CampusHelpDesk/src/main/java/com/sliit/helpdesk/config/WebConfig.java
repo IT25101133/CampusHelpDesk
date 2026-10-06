@@ -1,7 +1,5 @@
 package com.sliit.helpdesk.config;
 
-// Web Config is part of the campus help desk config code.
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;

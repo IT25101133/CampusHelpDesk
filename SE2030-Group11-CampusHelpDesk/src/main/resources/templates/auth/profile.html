@@ -14,37 +14,29 @@
                 </div>
             </div>
             <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
-            <div class="flash flash-err" th:if="${error}" th:text="${error}"></div>
             <div class="form-card" style="max-width: 560px;">
                 <p><strong th:text="${user.email}">email</strong> · <span th:text="${user.role}">ROLE</span></p>
                 <form th:action="@{/profile}" th:object="${profileForm}" method="post">
                     <div class="field">
                         <label>Full name</label>
-                        <input th:field="*{fullName}" required maxlength="100"/>
+                        <input th:field="*{fullName}"/>
                         <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
                     </div>
                     <div class="field">
                         <label>Department</label>
-                        <input th:field="*{department}" maxlength="100"/>
-                        <p class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></p>
+                        <input th:field="*{department}"/>
                     </div>
                     <div class="field">
                         <label>Student ID</label>
-                        <input th:field="*{studentId}" maxlength="20"/>
-                        <p class="error" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"></p>
+                        <input th:field="*{studentId}"/>
                     </div>
                     <div class="field">
                         <label>New password</label>
-                        <input type="password" th:field="*{newPassword}" minlength="8" maxlength="72"/>
+                        <input type="password" th:field="*{newPassword}"/>
                         <p class="hint">Leave blank to keep the current password.</p>
                         <p class="error" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></p>
                     </div>
                     <button class="btn btn-primary" type="submit">Save profile</button>
-                </form>
-                <form th:action="@{/profile/deactivate}" method="post" style="margin-top: 1rem;"
-                      th:if="${user.role.name() != 'ADMIN'}"
-                      onsubmit="return confirm('Deactivate your account? You will be signed out.');">
-                    <button class="btn btn-ghost" type="submit">Deactivate account</button>
                 </form>
             </div>
         </main>

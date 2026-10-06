@@ -4,13 +4,6 @@
 <body class="auth-page">
 <section class="auth-hero">
     <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
-            <img th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Campus Help Desk Logo" class="brand-logo" width="48" height="48" style="border-radius: 12px;"/>
-            <div>
-                <strong style="display:block;font-size:1.15rem;letter-spacing:0.02em;">Campus Help Desk</strong>
-                <small style="opacity:0.8;font-size:0.75rem;">SE2030 Group 11</small>
-            </div>
-        </div>
         <p class="hero-kicker">SE2030 Group 11</p>
         <h1>Campus Help Desk</h1>
         <p>IT labs, facilities, academic records, and finance — tracked in one place.</p>
@@ -20,22 +13,22 @@
 <section class="auth-panel">
     <div class="auth-card">
         <h2>Sign in</h2>
-        <p class="hint">Test login: <strong>test@sliit.lk</strong> / <strong>Test1234</strong></p>
+        <p class="hint">Use your campus email.</p>
         <div class="flash flash-ok" th:if="${param.logout}">You have been signed out.</div>
         <div class="flash flash-err" th:if="${param.error}">Email or password is incorrect.</div>
         <div class="flash flash-ok" th:if="${success}" th:text="${success}"></div>
         <form th:action="@{/login}" method="post">
             <div class="field">
                 <label for="email">Email</label>
-                <input id="email" name="email" type="email" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)" autofocus/>
+                <input id="email" name="email" type="email" required autofocus/>
             </div>
             <div class="field">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" required minlength="8" maxlength="72"/>
+                <input id="password" name="password" type="password" required/>
             </div>
             <button class="btn btn-primary" type="submit">Continue</button>
         </form>
-        <p>Students can <a th:href="@{/register}">create an account</a>. Other roles are issued by an administrator.</p>
+        <p>New here? <a th:href="@{/register}">Create an account</a></p>
     </div>
 </section>
 </body>
