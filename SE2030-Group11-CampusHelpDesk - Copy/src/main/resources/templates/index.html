@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Campus Help Desk')}"></head>
+<body>
+<div class="landing">
+    <nav class="landing-nav">
+        <a class="brand" th:href="@{/}" style="color: inherit;">
+            <span class="brand-mark">CH</span>
+            <span>
+                <span class="brand-word">Campus Help Desk</span>
+                <span class="brand-sub">SE2030 Group 11</span>
+            </span>
+        </a>
+        <div>
+            <a class="btn btn-ghost" th:href="@{/index.html}">Open app UI</a>
+            <a class="btn btn-ghost" th:href="@{/knowledgebase}">Browse FAQs</a>
+            <a class="btn btn-primary" th:href="@{/login}">Sign in</a>
+        </div>
+    </nav>
+    <section class="hero">
+        <div>
+            <p class="hero-kicker">SLIIT campus services</p>
+            <h1>One desk for labs, LMS, fees, and facilities.</h1>
+            <p class="lede">Submit a ticket, track its status, and find answers in the knowledge base before you wait in a queue.</p>
+            <p>
+                <a class="btn btn-primary" th:href="@{/register}">Create a student account</a>
+                <a class="btn btn-ghost" th:href="@{/login}">Staff sign in</a>
+            </p>
+        </div>
+        <div class="card">
+            <h3>Demo accounts</h3>
+            <p class="hint">Password for all seeded users: <strong>password</strong></p>
+            <p>Admin · <code>admin@sliit.lk</code></p>
+            <p>Staff · <code>staff@sliit.lk</code></p>
+            <p>Student · <code>student@sliit.lk</code></p>
+        </div>
+    </section>
+    <section class="modules">
+        <article class="card module-card">
+            <h3>Tickets</h3>
+            <p>Kodagoda — submit, comment, and track from open to resolved.</p>
+        </article>
+        <article class="card module-card">
+            <h3>Assignment</h3>
+            <p>Umer — categories route work to the right campus team with SLAs.</p>
+        </article>
+        <article class="card module-card">
+            <h3>Notifications</h3>
+            <p>Arachchi — assignment, replies, and status changes land in one inbox.</p>
+        </article>
+        <article class="card module-card">
+            <h3>Knowledge base</h3>
+            <p>Weerasekara — FAQs and how-to articles before a ticket is needed.</p>
+        </article>
+        <article class="card module-card">
+            <h3>Reports</h3>
+            <p>Jayathilaka — dashboard counts by status, priority, and category.</p>
+        </article>
+        <article class="card module-card">
+            <h3>Profiles</h3>
+            <p>Nirasha — registration, roles, and account details for every user.</p>
+        </article>
+    </section>
+</div>
+</body>
+</html>
