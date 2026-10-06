@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth.security;
 
+// Jwt Auth Filter is part of the campus help desk security code.
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,6 +50,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String username = jwtUtil.extractUsername(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (!jwtUtil.validateToken(token, userDetails)) {
+                return;
+            }
+            // A deactivated or deleted account must not keep using a token that was issued earlier.
+            if (!userDetails.isEnabled()) {
+                SecurityContextHolder.clearContext();
                 return;
             }
             UsernamePasswordAuthenticationToken authentication =
