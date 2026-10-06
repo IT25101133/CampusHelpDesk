@@ -8,7 +8,7 @@ import com.sliit.helpdesk.category.model.Category;
 
 
 
-/** One department choice for a ticket. */
+/** One department choice for a tickets. */
 public class CategoryResponse {
 
 
