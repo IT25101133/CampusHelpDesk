@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth.service;
 
+// Custom User Details Service is part of the campus help desk service code.
+
 import com.sliit.helpdesk.auth.model.User;
 import com.sliit.helpdesk.auth.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

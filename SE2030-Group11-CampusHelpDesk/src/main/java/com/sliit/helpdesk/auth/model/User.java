@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth.model;
 
+// User is part of the campus help desk model code.
+
 import com.sliit.helpdesk.knowledgebase.model.KbArticle;
 import com.sliit.helpdesk.notification.model.Notification;
 import com.sliit.helpdesk.notification.model.TicketComment;
@@ -41,7 +43,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "password_hash", nullable = false, length = 255)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -62,6 +64,13 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    /** Set when an admin soft-deletes the account. The row stays for audit. */
+    @Column(name = "deactivated_at")
+    private LocalDateTime deactivatedAt;
+
+    @Column(name = "deactivated_by")
+    private Long deactivatedBy;
 
     @OneToMany(mappedBy = "requester", fetch = FetchType.LAZY)
     private List<Ticket> createdTickets = new ArrayList<>();

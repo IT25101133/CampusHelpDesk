@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth.security;
 
+// Jwt Util is part of the campus help desk security code.
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
