@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 480" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Malabe campus">
+  <defs>
+    <linearGradient id="heroSky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="42%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="heroGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#312e81" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="480" fill="url(#heroSky)"/>
+  <circle cx="1280" cy="90" r="70" fill="#fde68a" opacity="0.7"/>
+  <rect x="820" y="150" width="210" height="250" fill="#111827"/>
+  <rect x="848" y="178" width="42" height="32" fill="#6366f1"/>
+  <rect x="904" y="178" width="42" height="32" fill="#8b5cf6"/>
+  <rect x="960" y="178" width="42" height="32" fill="#6366f1" opacity="0.7"/>
+  <rect x="848" y="228" width="42" height="32" fill="#818cf8"/>
+  <rect x="904" y="228" width="42" height="32" fill="#6366f1" opacity="0.55"/>
+  <rect x="960" y="228" width="42" height="32" fill="#a78bfa"/>
+  <rect x="848" y="278" width="42" height="32" fill="#6366f1"/>
+  <rect x="904" y="278" width="42" height="32" fill="#8b5cf6"/>
+  <rect x="960" y="278" width="42" height="32" fill="#6366f1" opacity="0.8"/>
+  <rect x="1060" y="110" width="260" height="290" fill="#0f172a"/>
+  <polygon points="1060,110 1190,40 1320,110" fill="#4338ca"/>
+  <rect x="1168" y="300" width="44" height="100" fill="#020617"/>
+  <rect x="1100" y="150" width="48" height="36" fill="url(#heroGlow)"/>
+  <rect x="1168" y="150" width="48" height="36" fill="#6366f1"/>
+  <rect x="1236" y="150" width="48" height="36" fill="#8b5cf6"/>
+  <rect x="1100" y="206" width="48" height="36" fill="#6366f1" opacity="0.7"/>
+  <rect x="1168" y="206" width="48" height="36" fill="#a78bfa"/>
+  <rect x="1236" y="206" width="48" height="36" fill="#6366f1"/>
+  <rect x="1100" y="262" width="48" height="36" fill="#818cf8"/>
+  <rect x="1236" y="262" width="48" height="36" fill="#8b5cf6"/>
+  <rect x="620" y="210" width="170" height="190" fill="#1f2937"/>
+  <rect x="646" y="232" width="36" height="28" fill="#06b6d4"/>
+  <rect x="694" y="232" width="36" height="28" fill="#6366f1"/>
+  <rect x="742" y="232" width="36" height="28" fill="#06b6d4" opacity="0.6"/>
+  <rect x="646" y="276" width="36" height="28" fill="#6366f1"/>
+  <rect x="694" y="276" width="36" height="28" fill="#8b5cf6"/>
+  <rect y="400" width="1600" height="80" fill="#020617"/>
+  <rect x="0" y="392" width="1600" height="10" fill="#6366f1" opacity="0.45"/>
+  <circle cx="240" cy="368" r="18" fill="#10b981" opacity="0.8"/>
+  <rect x="228" y="368" width="24" height="40" fill="#14532d"/>
+  <circle cx="300" cy="352" r="26" fill="#22c55e" opacity="0.75"/>
+  <rect x="286" y="352" width="28" height="52" fill="#166534"/>
+</svg>

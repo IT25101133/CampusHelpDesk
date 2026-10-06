@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.knowledgebase.model;
 
+// Kb Article is part of the campus help desk model code.
+
 import com.sliit.helpdesk.auth.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

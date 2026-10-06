@@ -40,6 +40,45 @@
                     <p><a th:href="@{/reports}">Open full reports</a></p>
                 </section>
             </div>
+            <section class="card" style="margin-top: 1.2rem;" th:if="${resolutionStats != null}">
+                <h3>Resolution Time Analysis</h3>
+                <p class="hint">
+                    Overall average
+                    <strong th:text="${resolutionStats.overallAverageHours}">0</strong> hours
+                    across
+                    <strong th:text="${resolutionStats.resolvedCount}">0</strong>
+                    resolved/closed ticket(s) with a recorded resolution time.
+                </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Average hours</th>
+                            <th>Tickets</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Overall</td>
+                            <td th:text="${resolutionStats.overallAverageHours}">0</td>
+                            <td th:text="${resolutionStats.resolvedCount}">0</td>
+                        </tr>
+                        <tr th:each="row : ${resolutionStats.byPriority}">
+                            <td th:text="'Priority · ' + ${row.name}">Priority</td>
+                            <td th:text="${row.averageHours}">0</td>
+                            <td th:text="${row.count}">0</td>
+                        </tr>
+                        <tr th:each="row : ${resolutionStats.byCategory}">
+                            <td th:text="'Category · ' + ${row.name}">Category</td>
+                            <td th:text="${row.averageHours}">0</td>
+                            <td th:text="${row.count}">0</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="empty" th:if="${resolutionStats.resolvedCount == 0}">No resolved tickets with a recorded resolution time yet.</p>
+            </section>
         </main>
     </div>
 </div>
