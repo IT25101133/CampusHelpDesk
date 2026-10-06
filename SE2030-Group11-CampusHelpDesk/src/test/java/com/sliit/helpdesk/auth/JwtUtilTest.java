@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth;
 
+// Jwt Util Test is part of the campus help desk auth code.
+
 import com.sliit.helpdesk.auth.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

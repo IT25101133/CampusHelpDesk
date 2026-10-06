@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Academic records">
+  <defs>
+    <linearGradient id="acBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#acBg)"/>
+  <polygon points="400,70 720,160 400,250 80,160" fill="#6366f1"/>
+  <polygon points="400,92 680,160 400,228 120,160" fill="#a78bfa"/>
+  <rect x="388" y="248" width="24" height="120" fill="#c7d2fe"/>
+  <rect x="220" y="360" width="360" height="18" rx="6" fill="#4338ca"/>
+  <circle cx="400" cy="160" r="18" fill="#fde68a"/>
+  <rect x="520" y="270" width="90" height="120" rx="8" fill="#111827"/>
+  <rect x="536" y="288" width="58" height="8" fill="#818cf8"/>
+  <rect x="536" y="308" width="58" height="8" fill="#6366f1"/>
+  <rect x="536" y="328" width="40" height="8" fill="#4f46e5"/>
+</svg>

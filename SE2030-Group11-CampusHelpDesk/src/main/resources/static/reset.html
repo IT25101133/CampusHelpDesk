@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Reset password · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+</head>
+<body class="login-page" data-page="reset">
+<main class="login-split">
+    <section class="login-left">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+            <img src="/images/logo.svg" alt="Campus Help Desk Logo" class="brand-logo" width="48" height="48" style="border-radius:12px;"/>
+            <div>
+                <strong style="display:block;font-size:1.15rem;letter-spacing:0.02em;">Campus Help Desk</strong>
+                <small style="opacity:0.8;font-size:0.75rem;">SE2030 Group 11</small>
+            </div>
+        </div>
+        <span class="pill-badge">SLIIT MALABE • ACCOUNT RECOVERY</span>
+        <h1 class="welcome-headline">Reset your <span class="headline-accent">campus password.</span></h1>
+        <p class="login-copy">Use the recovery token from the welcome portal. In this demo the token is shown immediately instead of sending email.</p>
+    </section>
+    <section class="login-right">
+        <div class="welcome-card">
+            <h2>Set a new password</h2>
+            <form id="reset-form" novalidate>
+                <div class="field">
+                    <label for="token">Reset token</label>
+                    <input id="token" name="token" type="text" required maxlength="255" autocomplete="off"/>
+                </div>
+                <div class="field">
+                    <label for="newPassword">New password</label>
+                    <input id="newPassword" name="newPassword" type="password" minlength="8" maxlength="72" required autocomplete="new-password"/>
+                </div>
+                <div class="form-banner" id="reset-banner" role="alert"></div>
+                <button class="btn btn-primary btn-block" type="submit">Update password</button>
+            </form>
+            <p class="subtext" style="margin-top:1rem"><a href="/welcome">Back to welcome portal</a></p>
+        </div>
+    </section>
+</main>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Profile · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+    <script>
+        (function () {
+            try {
+                var session = JSON.parse(localStorage.getItem("chd.session") || "null");
+                if (!session || !session.token) {
+                    location.replace("/welcome");
+                }
+            } catch (e) {
+                location.replace("/welcome");
+            }
+        })();
+    </script>
+</head>
+<body data-page="profile">
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="/workspace">
+            <img src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="40" height="40" style="border-radius:10px;"/>
+            <span>
+                <span class="brand-name">Campus Help Desk</span>
+                <span class="brand-caption">SE2030 · GROUP 11</span>
+            </span>
+        </a>
+        <div class="user-widget">
+            <div class="avatar" data-user-initials></div>
+            <div>
+                <div class="user-name" data-user-name></div>
+                <div class="user-role" data-user-role></div>
+            </div>
+        </div>
+        <nav class="sidebar-nav"></nav>
+        <button class="sign-out" type="button" data-sign-out>Sign out</button>
+    </aside>
+    <div class="workspace">
+        <header class="topbar">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation">☰</button>
+            <div class="topbar-copy">
+                <h1 class="page-title">Profile &amp; account</h1>
+                <p class="page-sub">Update your contact details, password, and review account activity</p>
+            </div>
+            <div class="avatar lg" data-user-initials></div>
+        </header>
+        <main class="page-content">
+            <div class="split-layout">
+                <section class="card">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Personal information</h3>
+                            <p>Students and staff can keep campus contact details current.</p>
+                        </div>
+                    </div>
+                    <form id="profile-form" class="pad-form" novalidate>
+                        <div class="form-banner" id="profile-banner" role="status"></div>
+                        <div class="field">
+                            <label for="fullName">Full name</label>
+                            <input id="fullName" name="fullName" type="text" required maxlength="100"/>
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="field">
+                                <label for="email">University email</label>
+                                <input id="email" name="email" type="email" disabled/>
+                            </div>
+                            <div class="field">
+                                <label for="role">Role</label>
+                                <input id="role" name="role" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="field">
+                                <label for="department">Department / faculty</label>
+                                <input id="department" name="department" type="text" maxlength="100" placeholder="IT Services"/>
+                            </div>
+                            <div class="field" id="student-id-field">
+                                <label for="studentId">Student ID</label>
+                                <input id="studentId" name="studentId" type="text" maxlength="20" placeholder="IT25101078"/>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="newPassword">New password (optional)</label>
+                            <input id="newPassword" name="newPassword" type="password" minlength="8" maxlength="72" placeholder="Leave blank to keep current password"/>
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="btn btn-primary" type="submit">Save profile</button>
+                            <button class="btn btn-ghost" type="button" id="deactivate-self">Deactivate account</button>
+                        </div>
+                    </form>
+                </section>
+                <section class="card">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Activity history</h3>
+                            <p>Ticket, login, and profile actions recorded for this account.</p>
+                        </div>
+                    </div>
+                    <form id="activity-filters" class="pad-form">
+                        <div class="form-grid-2">
+                            <div class="field">
+                                <label for="activity-from">From</label>
+                                <input id="activity-from" type="date"/>
+                            </div>
+                            <div class="field">
+                                <label for="activity-to">To</label>
+                                <input id="activity-to" type="date"/>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="activity-action">Action</label>
+                            <select id="activity-action">
+                                <option value="">All actions</option>
+                                <option>LOGIN_SUCCESS</option>
+                                <option>LOGIN_FAILURE</option>
+                                <option>LOGOUT</option>
+                                <option>PROFILE_UPDATE</option>
+                                <option>PASSWORD_CHANGE</option>
+                                <option>ACCOUNT_DEACTIVATE</option>
+                                <option>TICKET_CREATE</option>
+                                <option>TICKET_UPDATE</option>
+                                <option>TICKET_DELETE</option>
+                                <option>ROLE_CHANGE</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-ghost" type="submit">Filter activity</button>
+                    </form>
+                    <div class="activity-list" id="profile-activity"></div>
+                    <div class="ticket-actions" style="padding:0 1.15rem 1.2rem">
+                        <button class="btn btn-ghost" type="button" id="activity-more" hidden>Load more</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>

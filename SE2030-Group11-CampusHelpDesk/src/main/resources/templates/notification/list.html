@@ -17,6 +17,7 @@
                 </form>
             </div>
             <div class="flash flash-ok" th:if="${success}" th:text="${success}" data-auto-dismiss="true"></div>
+            <div class="flash flash-err" th:if="${error}" th:text="${error}"></div>
             <div class="card empty" th:if="${notifications.isEmpty()}">No notifications yet.</div>
             <div class="card" th:each="item : ${notifications}" th:style="${!item.read} ? 'border-left: 4px solid #b0893e;'">
                 <form th:action="@{/notifications/{id}/read(id=${item.id})}" method="post">
@@ -24,6 +25,10 @@
                         <strong th:text="${item.message}">Message</strong>
                         <small th:text="${#temporals.format(item.createdAt, 'dd MMM yyyy HH:mm')}">date</small>
                     </button>
+                </form>
+                <form th:action="@{/notifications/{id}/delete(id=${item.id})}" method="post"
+                      onsubmit="return confirm('Delete this notification?');">
+                    <button class="btn btn-ghost btn-small" type="submit">Delete</button>
                 </form>
             </div>
         </main>

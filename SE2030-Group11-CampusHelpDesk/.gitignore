@@ -11,3 +11,5 @@ data/
 Thumbs.db
 *.class
 .mvn/wrapper/maven-wrapper.jar
+src/main/resources/static/uploads/**
+!src/main/resources/static/uploads/.gitkeep
