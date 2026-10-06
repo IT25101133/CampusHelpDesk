@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Library services">
+  <defs>
+    <linearGradient id="libCardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#libCardBg)"/>
+  <rect x="90" y="90" width="620" height="300" rx="16" fill="#052e16"/>
+  <rect x="130" y="130" width="50" height="220" rx="6" fill="#34d399"/>
+  <rect x="196" y="150" width="44" height="200" rx="6" fill="#fbbf24"/>
+  <rect x="256" y="120" width="58" height="230" rx="6" fill="#60a5fa"/>
+  <rect x="330" y="140" width="46" height="210" rx="6" fill="#f87171"/>
+  <rect x="392" y="112" width="62" height="238" rx="6" fill="#a78bfa"/>
+  <rect x="470" y="150" width="50" height="200" rx="6" fill="#22d3ee"/>
+  <rect x="536" y="128" width="54" height="222" rx="6" fill="#fb923c"/>
+  <rect x="606" y="158" width="48" height="192" rx="6" fill="#4ade80"/>
+</svg>

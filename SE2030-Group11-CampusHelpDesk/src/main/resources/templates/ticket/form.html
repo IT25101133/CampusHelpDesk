@@ -17,27 +17,27 @@
                 <form th:action="@{/tickets}" th:object="${ticketForm}" method="post">
                     <div class="field">
                         <label>Title</label>
-                        <input th:field="*{title}" placeholder="e.g. LMS login fails after password reset"/>
+                        <input th:field="*{title}" required maxlength="200" placeholder="e.g. LMS login fails after password reset"/>
                         <p class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                     </div>
                     <div class="field">
-                        <label>Category</label>
-                        <select th:field="*{categoryId}">
-                            <option value="">Select a category</option>
+                        <label>Department / category</label>
+                        <select th:field="*{categoryId}" required>
+                            <option value="">Select a department</option>
                             <option th:each="cat : ${categories}" th:value="${cat.id}"
-                                    th:text="${cat.name + ' · SLA ' + cat.slaHours + 'h'}">IT</option>
+                                    th:text="${cat.name + (cat.department != null and !cat.department.isEmpty() ? ' — ' + cat.department : '')}">IT</option>
                         </select>
-                        <p class="error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></p>
+                        <p class="error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">Please select a department</p>
                     </div>
                     <div class="field">
                         <label>Priority</label>
-                        <select th:field="*{priority}">
+                        <select th:field="*{priority}" required>
                             <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}">MEDIUM</option>
                         </select>
                     </div>
                     <div class="field">
                         <label>Description</label>
-                        <textarea th:field="*{description}" placeholder="What happened, where, and what you already tried."></textarea>
+                        <textarea th:field="*{description}" required maxlength="4000" placeholder="What happened, where, and what you already tried."></textarea>
                         <p class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit ticket</button>

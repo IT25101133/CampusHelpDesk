@@ -1,5 +1,7 @@
 package com.sliit.helpdesk;
 
+// Home Controller is part of the campus help desk helpdesk code.
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,6 @@ public class HomeController {
                 && !"anonymousUser".equals(authentication.getName())) {
             return "redirect:/dashboard";
         }
-        return "index";
+        return "forward:/login.html";
     }
 }
