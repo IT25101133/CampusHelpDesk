@@ -13,7 +13,7 @@ public class CategoryResponse {
 
 
 
-    /** Database id of the category. */
+    /** Database id of the categories. */
     private Long id;
 
     /** Name shown in the dropdown, such as IT Support. */
