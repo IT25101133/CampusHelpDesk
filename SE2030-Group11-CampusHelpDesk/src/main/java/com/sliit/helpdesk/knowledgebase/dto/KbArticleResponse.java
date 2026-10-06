@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.knowledgebase.dto;
 
+// Kb Article Response is part of the campus help desk dto code.
+
 import com.sliit.helpdesk.knowledgebase.model.KbArticle;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,7 @@ public class KbArticleResponse {
     private Long id;
     private String title;
     private String content;
+    private Long categoryId;
     private String category;
     private String author;
     private int viewCount;
@@ -19,6 +22,7 @@ public class KbArticleResponse {
         response.id = article.getId();
         response.title = article.getTitle();
         response.content = article.getContent();
+        response.categoryId = article.getCategory() == null ? null : article.getCategory().getId();
         response.category = article.getCategory() == null ? null : article.getCategory().getName();
         response.author = article.getAuthor() == null ? null : article.getAuthor().getFullName();
         response.viewCount = article.getViewCount();
@@ -36,6 +40,10 @@ public class KbArticleResponse {
 
     public String getContent() {
         return content;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
     }
 
     public String getCategory() {
