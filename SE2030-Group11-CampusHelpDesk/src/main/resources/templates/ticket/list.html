@@ -22,6 +22,8 @@
                         <th>Number</th>
                         <th>Title</th>
                         <th>Category</th>
+                        <th th:if="${!studentView}">Submitter role</th>
+                        <th>Assignee</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th>Updated</th>
@@ -31,7 +33,14 @@
                     <tr th:each="ticket : ${tickets}">
                         <td><a th:href="@{/tickets/{id}(id=${ticket.id})}" th:text="${ticket.ticketNumber}">HD-1</a></td>
                         <td th:text="${ticket.title}">Title</td>
-                        <td th:text="${ticket.category.name}">IT</td>
+                        <td>
+                            <span th:text="${ticket.category != null} ? ${ticket.category.name} : '—'">IT</span>
+                            <small class="hint" style="display:block"
+                                   th:text="${ticket.category != null and ticket.category.department != null} ? ${ticket.category.department} : ''"></small>
+                        </td>
+                        <td th:if="${!studentView}"
+                            th:text="${ticket.submitterRole != null} ? ${#strings.capitalize(#strings.toLowerCase(ticket.submitterRole.name()))} : '—'">Student</td>
+                        <td th:text="${ticket.assignee != null} ? ${ticket.assignee.fullName} : 'Unassigned'">Unassigned</td>
                         <td><span class="pill" th:classappend="${ticket.priority}" th:text="${ticket.priority}">MED</span></td>
                         <td><span class="pill" th:classappend="${ticket.status}" th:text="${#strings.replace(ticket.status, '_', ' ')}">OPEN</span></td>
                         <td th:text="${#temporals.format(ticket.updatedAt, 'dd MMM yyyy HH:mm')}">date</td>

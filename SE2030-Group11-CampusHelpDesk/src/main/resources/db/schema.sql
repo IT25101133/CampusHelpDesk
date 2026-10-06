@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS users (
     department      VARCHAR(100),
     is_active       BOOLEAN DEFAULT TRUE,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deactivated_at  TIMESTAMP NULL,
+    deactivated_by  BIGINT
 );
 
 -- ===================== CATEGORIZATION (Umer) =====================
@@ -37,6 +39,10 @@ CREATE TABLE IF NOT EXISTS tickets (
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     resolved_at     TIMESTAMP NULL,
+    sla_due_at      TIMESTAMP NULL,
+    submitter_role  VARCHAR(20),
+    delete_requested BOOLEAN DEFAULT FALSE,
+    delete_approved BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (category_id) REFERENCES ticket_categories(category_id),
     FOREIGN KEY (created_by)  REFERENCES users(user_id),
     FOREIGN KEY (assigned_to) REFERENCES users(user_id)
@@ -65,9 +71,11 @@ CREATE TABLE IF NOT EXISTS ticket_comments (
 
 CREATE TABLE IF NOT EXISTS notifications (
     notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id         BIGINT NOT NULL,
+    user_id         BIGINT NULL,
+    recipient_role  VARCHAR(20),
     ticket_id       BIGINT,
     message         VARCHAR(300) NOT NULL,
+    link            VARCHAR(255),
     is_read         BOOLEAN DEFAULT FALSE,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id)   REFERENCES users(user_id),
@@ -104,7 +112,38 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE IF NOT EXISTS reports (
+    report_id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name                 VARCHAR(150) NOT NULL,
+    department           VARCHAR(100),
+    status               VARCHAR(24),
+    priority             VARCHAR(16),
+    ticket_count         BIGINT,
+    resolved_count       BIGINT,
+    avg_resolution_hours DOUBLE,
+    created_by           BIGINT,
+    created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by           BIGINT,
+    updated_at           TIMESTAMP NULL,
+    FOREIGN KEY (created_by) REFERENCES users(user_id),
+    FOREIGN KEY (updated_by) REFERENCES users(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS audit_event (
+    id              BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id         BIGINT,
+    action          VARCHAR(80) NOT NULL,
+    ip_address      VARCHAR(64),
+    user_agent      VARCHAR(255),
+    target_entity   VARCHAR(50),
+    target_id       BIGINT,
+    metadata        VARCHAR(500),
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_tickets_created_by  ON tickets (created_by);
 CREATE INDEX IF NOT EXISTS idx_tickets_assigned_to ON tickets (assigned_to);
 CREATE INDEX IF NOT EXISTS idx_tickets_status      ON tickets (status);
 CREATE INDEX IF NOT EXISTS idx_notif_user          ON notifications (user_id, is_read);
+CREATE INDEX IF NOT EXISTS idx_audit_event_user_created ON audit_event (user_id, created_at);

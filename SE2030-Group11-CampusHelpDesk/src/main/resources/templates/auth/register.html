@@ -4,9 +4,16 @@
 <body class="auth-page">
 <section class="auth-hero">
     <div>
-        <p class="hero-kicker">Student access</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+            <img th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Campus Help Desk Logo" class="brand-logo" width="48" height="48" style="border-radius: 12px;"/>
+            <div>
+                <strong style="display:block;font-size:1.15rem;letter-spacing:0.02em;">Campus Help Desk</strong>
+                <small style="opacity:0.8;font-size:0.75rem;">SE2030 Group 11</small>
+            </div>
+        </div>
+        <p class="hero-kicker">Campus access</p>
         <h1>Create your help desk account</h1>
-        <p>Staff and admin accounts are provisioned by IT Services.</p>
+        <p>Self-registration is only for students.</p>
     </div>
     <p>Use your @sliit.lk email when possible.</p>
 </section>
@@ -16,27 +23,28 @@
         <form th:action="@{/register}" th:object="${registerRequest}" method="post">
             <div class="field">
                 <label>Full name</label>
-                <input th:field="*{fullName}"/>
+                <input th:field="*{fullName}" required maxlength="100"/>
                 <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
             </div>
             <div class="field">
                 <label>Email</label>
-                <input type="email" th:field="*{email}"/>
+                <input type="email" th:field="*{email}" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)"/>
                 <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
             <div class="field">
                 <label>Password</label>
-                <input type="password" th:field="*{password}"/>
+                <input type="password" th:field="*{password}" required minlength="8" maxlength="72"/>
                 <p class="hint">At least 8 characters.</p>
                 <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
+            <input type="hidden" th:field="*{role}" value="STUDENT"/>
             <div class="field">
                 <label>Student ID</label>
-                <input th:field="*{studentId}"/>
+                <input th:field="*{studentId}" maxlength="20"/>
             </div>
             <div class="field">
                 <label>Department / faculty</label>
-                <input th:field="*{department}"/>
+                <input th:field="*{department}" maxlength="100"/>
             </div>
             <button class="btn btn-primary" type="submit">Create account</button>
         </form>

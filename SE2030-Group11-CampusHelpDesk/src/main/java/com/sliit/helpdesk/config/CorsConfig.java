@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.config;
 
+// Cors Config is part of the campus help desk config code.
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

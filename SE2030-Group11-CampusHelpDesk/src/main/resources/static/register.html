@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Create Account · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+    <script>
+        (function () {
+            try {
+                var session = JSON.parse(localStorage.getItem("chd.session") || "null");
+                if (session && session.token) {
+                    location.replace("/workspace");
+                }
+            } catch (e) { /* stay on register */ }
+        })();
+    </script>
+</head>
+<body class="login-page" data-page="register">
+<main class="login-split">
+    <section class="login-left">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+            <img src="/images/logo.svg" alt="Campus Help Desk Logo" class="brand-logo" width="48" height="48" style="border-radius:12px;"/>
+            <div>
+                <strong style="display:block;font-size:1.15rem;letter-spacing:0.02em;">Campus Help Desk</strong>
+                <small style="opacity:0.8;font-size:0.75rem;">SE2030 Group 11</small>
+            </div>
+        </div>
+        <span class="pill-badge">⚡ SLIIT MALABE • NEXT-GEN HELP DESK</span>
+        <h1 class="welcome-headline">Create a <span class="headline-accent">student</span> account.</h1>
+        <p class="login-copy">Self-registration is only for students. Use your @sliit.lk or @my.sliit.lk email. Other campus roles are created by an administrator.</p>
+        <div class="thumb-row">
+            <img class="thumb" src="/images/thumb-campus.svg" alt="SLIIT campus buildings"/>
+            <img class="thumb" src="/images/thumb-library.svg" alt="Campus library stacks"/>
+            <img class="thumb" src="/images/thumb-lab.svg" alt="Computer lab workspace"/>
+        </div>
+    </section>
+    <section class="login-right">
+        <div class="welcome-card">
+            <h2>Create student account</h2>
+            <p class="subtext">This form only creates a student account.</p>
+            <form id="register-form" novalidate>
+                <input type="hidden" id="role" name="role" value="STUDENT"/>
+                <div class="field">
+                    <label for="fullName">Full name</label>
+                    <input id="fullName" name="fullName" type="text" placeholder="Kodagoda Silva" autocomplete="name" required maxlength="100"/>
+                </div>
+                <div class="field">
+                    <label for="email">University Email ID</label>
+                    <input id="email" name="email" type="email" placeholder="it25101078@my.sliit.lk" autocomplete="username" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)"/>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" maxlength="72" required/>
+                </div>
+                <div class="form-grid-2">
+                    <div class="field">
+                        <label for="department">Department / faculty</label>
+                        <input id="department" name="department" type="text" maxlength="100" placeholder="Faculty of Computing"/>
+                    </div>
+                    <div class="field" id="student-id-field">
+                        <label for="studentId">Student ID</label>
+                        <input id="studentId" name="studentId" type="text" maxlength="20" placeholder="IT20201234"/>
+                    </div>
+                </div>
+                <div class="form-banner" id="register-error" role="alert"></div>
+                <button class="btn btn-primary btn-block" type="submit">Create account →</button>
+            </form>
+            <p class="subtext" style="margin-top:1rem">Already registered? <a href="/welcome">Sign in</a></p>
+        </div>
+    </section>
+</main>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>

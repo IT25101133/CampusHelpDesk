@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Command Center · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+    <script>
+        (function () {
+            try {
+                var session = JSON.parse(localStorage.getItem("chd.session") || "null");
+                if (!session || !session.token) {
+                    location.replace("/welcome");
+                }
+            } catch (e) {
+                location.replace("/welcome");
+            }
+        })();
+    </script>
+</head>
+<body data-page="dashboard">
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="/workspace">
+            <img src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="40" height="40" style="border-radius:10px;"/>
+            <span>
+                <span class="brand-name">Campus Help Desk</span>
+                <span class="brand-caption">SE2030 · GROUP 11</span>
+            </span>
+        </a>
+        <div class="user-widget">
+            <div class="avatar" data-user-initials></div>
+            <div>
+                <div class="user-name" data-user-name></div>
+                <div class="user-role" data-user-role></div>
+            </div>
+        </div>
+        <nav class="sidebar-nav"></nav>
+        <button class="sign-out" type="button" data-sign-out>Sign out</button>
+    </aside>
+    <div class="workspace">
+        <header class="topbar">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation">☰</button>
+            <div class="topbar-copy">
+                <h1 class="page-title">Command Center</h1>
+                <p class="page-sub">Real-time overview of your support activity</p>
+            </div>
+            <div class="topbar-search">
+                <input class="search-input" type="search" placeholder="🔍 Search tickets &amp; knowledge..."/>
+            </div>
+            <div class="avatar lg" data-user-initials></div>
+        </header>
+        <main class="page-content">
+            <section class="hero-banner">
+                <span class="term-badge">Academic Term 2026 · Active</span>
+                <h2 class="hero-title" id="hero-title">Welcome back</h2>
+                <p id="hero-copy">Loading your support activity…</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="/request">+ Raise New Ticket</a>
+                    <a class="btn btn-outline" href="/kb">Explore Knowledge Base</a>
+                </div>
+            </section>
+            <section class="stats-row">
+                <article class="stat-card indigo">
+                    <div class="stat-label">TOTAL REQUESTS</div>
+                    <span class="stat-value" id="stat-total">—</span>
+                    <div class="stat-hint">In your current view</div>
+                </article>
+                <article class="stat-card amber">
+                    <div class="stat-label">IN PROGRESS</div>
+                    <span class="stat-value amber" id="stat-progress">—</span>
+                    <div class="stat-hint">Active investigation</div>
+                </article>
+                <article class="stat-card green">
+                    <div class="stat-label">RESOLVED</div>
+                    <span class="stat-value green" id="stat-resolved">—</span>
+                    <div class="stat-hint">Successfully closed</div>
+                </article>
+            </section>
+            <section class="card">
+                <div class="panel-head">
+                    <div>
+                        <h3>Notifications</h3>
+                        <p>Status and assignment alerts for your tickets</p>
+                    </div>
+                    <a class="btn btn-ghost" href="/inbox">Open inbox</a>
+                    <button class="btn btn-ghost" type="button" id="mark-all-read">Mark all read</button>
+                </div>
+                <div class="activity-list" id="notification-list"></div>
+            </section>
+            <section class="card">
+                <div class="panel-head">
+                    <div>
+                        <h3>Recent Activity Feed</h3>
+                        <p>Live updates across your assigned requests</p>
+                    </div>
+                    <a class="btn btn-ghost" href="/ledger">View full ledger</a>
+                </div>
+                <div class="activity-list" id="activity-list"></div>
+            </section>
+        </main>
+    </div>
+</div>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>
