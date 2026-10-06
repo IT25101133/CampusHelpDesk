@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Category')}"></head>
+<body>
+<div class="app-shell">
+    <aside th:replace="~{fragments/layout :: sidebar('categories')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar}"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1 th:text="${categoryId == null} ? 'New category' : 'Edit category'">Category</h1>
+                    <p>Tickets in this category are auto-assigned to staff in the same department.</p>
+                </div>
+            </div>
+            <div class="form-card" style="max-width: 640px;">
+                <form th:action="${categoryId == null} ? @{/categories} : @{/categories/{id}(id=${categoryId})}"
+                      th:object="${categoryForm}" method="post">
+                    <div class="field">
+                        <label>Name</label>
+                        <input th:field="*{name}"/>
+                        <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+                    <div class="field">
+                        <label>Department</label>
+                        <input th:field="*{department}"/>
+                    </div>
+                    <div class="field">
+                        <label>SLA hours</label>
+                        <input type="number" min="1" th:field="*{slaHours}"/>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-ghost" th:href="@{/categories}">Cancel</a>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Accounts · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+    <script>
+        (function () {
+            try {
+                var session = JSON.parse(localStorage.getItem("chd.session") || "null");
+                if (!session || !session.token) {
+                    location.replace("/welcome");
+                } else if (session.role !== "ADMIN") {
+                    location.replace("/workspace");
+                }
+            } catch (e) {
+                location.replace("/welcome");
+            }
+        })();
+    </script>
+</head>
+<body data-page="accounts">
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="/workspace">
+            <img src="/images/logo.svg" alt="Campus Help Desk" class="brand-logo" width="40" height="40" style="border-radius:10px;"/>
+            <span>
+                <span class="brand-name">Campus Help Desk</span>
+                <span class="brand-caption">SE2030 · GROUP 11</span>
+            </span>
+        </a>
+        <div class="user-widget">
+            <div class="avatar" data-user-initials></div>
+            <div>
+                <div class="user-name" data-user-name></div>
+                <div class="user-role" data-user-role></div>
+            </div>
+        </div>
+        <nav class="sidebar-nav"></nav>
+        <button class="sign-out" type="button" data-sign-out>Sign out</button>
+    </aside>
+    <div class="workspace">
+        <header class="topbar">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation">☰</button>
+            <div class="topbar-copy">
+                <h1 class="page-title">Campus Accounts</h1>
+                <p class="page-sub">Create student, lecturer, staff, admin, and department head logins</p>
+            </div>
+            <div class="avatar lg" data-user-initials></div>
+        </header>
+        <main class="page-content">
+            <div class="accounts-layout">
+                <section class="card accounts-form-card">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Create an account</h3>
+                            <p>Provision any campus role. Password must be at least 8 characters.</p>
+                        </div>
+                    </div>
+                    <form id="account-form" novalidate>
+                        <div class="form-banner" id="account-banner" role="status"></div>
+                        <div class="field">
+                            <label for="fullName">Full name</label>
+                            <input id="fullName" name="fullName" type="text" required maxlength="100" placeholder="Nirasha Perera"/>
+                        </div>
+                        <div class="field">
+                            <label for="email">University email</label>
+                            <input id="email" name="email" type="email" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)" placeholder="new.user@sliit.lk"/>
+                        </div>
+                        <div class="field">
+                            <label for="password">Password</label>
+                            <input id="password" name="password" type="password" required minlength="8" maxlength="72" placeholder="At least 8 characters"/>
+                        </div>
+                        <div class="field">
+                            <label for="role">Role</label>
+                            <select id="role" name="role" required>
+                                <option value="STUDENT">Student</option>
+                                <option value="LECTURER">Lecturer</option>
+                                <option value="STAFF">Staff</option>
+                                <option value="ADMIN">Administrator</option>
+                                <option value="DEPT_HEAD">Department Head</option>
+                            </select>
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="field">
+                                <label for="department">Department</label>
+                                <input id="department" name="department" type="text" maxlength="100" placeholder="IT Services"/>
+                            </div>
+                            <div class="field" id="student-id-field">
+                                <label for="studentId">Student ID</label>
+                                <input id="studentId" name="studentId" type="text" maxlength="20" placeholder="IT20201234"/>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+                    </form>
+                </section>
+                <section class="table-wrap">
+                    <table class="ticket-table accounts-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="accounts-body">
+                        <tr><td colspan="6"><p class="empty-note">Loading accounts…</p></td></tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>
