@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth.service;
 
+// Auth Service is part of the campus help desk service code.
+
 import com.sliit.helpdesk.auth.dto.ProfileUpdateRequest;
 import com.sliit.helpdesk.auth.dto.RegisterRequest;
 import com.sliit.helpdesk.auth.model.Role;
@@ -30,6 +32,9 @@ public class AuthService {
     public User register(RegisterRequest request) {
         if (userRepository.existsByEmailIgnoreCase(request.getEmail())) {
             throw new IllegalArgumentException("An account with that email already exists.");
+        }
+        if (request.getRole() != null && request.getRole() != Role.STUDENT) {
+            throw new IllegalArgumentException("Only students can create an account from the sign-in page.");
         }
         User user = new User();
         user.setEmail(request.getEmail().trim().toLowerCase());

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Welcome Portal · SLIIT Services Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/pro.css"/>
+    <script>
+        (function () {
+            try {
+                var session = JSON.parse(localStorage.getItem("chd.session") || "null");
+                if (session && session.token) {
+                    location.replace("/workspace");
+                }
+            } catch (e) { /* stay on login */ }
+        })();
+    </script>
+</head>
+<body class="login-page" data-page="login">
+<main class="login-split">
+    <section class="login-left">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+            <img src="/images/logo.svg" alt="Campus Help Desk Logo" class="brand-logo" width="48" height="48" style="border-radius:12px;"/>
+            <div>
+                <strong style="display:block;font-size:1.15rem;letter-spacing:0.02em;">Campus Help Desk</strong>
+                <small style="opacity:0.8;font-size:0.75rem;">SE2030 Group 11</small>
+            </div>
+        </div>
+        <span class="pill-badge">⚡ SLIIT MALABE • NEXT-GEN HELP DESK</span>
+        <h1 class="welcome-headline">Intelligent Campus Support &amp; <span class="headline-accent">Services Hub.</span></h1>
+        <p class="login-copy">Seamlessly dispatch, monitor, and resolve inquiries across faculties, IT infrastructure, finance, library, and hostel accommodation with enterprise-grade agility.</p>
+        <div class="thumb-row">
+            <img class="thumb" src="/images/thumb-campus.svg" alt="SLIIT campus buildings"/>
+            <img class="thumb" src="/images/thumb-library.svg" alt="Campus library stacks"/>
+            <img class="thumb" src="/images/thumb-lab.svg" alt="Computer lab workspace"/>
+        </div>
+    </section>
+    <section class="login-right">
+        <div class="welcome-card">
+            <h2>Welcome Portal</h2>
+            <p class="subtext">Select your active preview persona to explore:</p>
+            <div class="persona-grid" role="group" aria-label="Preview persona">
+                <button type="button" class="persona-btn selected" data-persona="student" aria-pressed="true">
+                    <strong>Student</strong>
+                    <span>Track &amp; submit personal requests</span>
+                </button>
+                <button type="button" class="persona-btn" data-persona="lecturer" aria-pressed="false">
+                    <strong>Lecturer</strong>
+                    <span>Report module &amp; lab inquiries</span>
+                </button>
+                <button type="button" class="persona-btn" data-persona="staff" aria-pressed="false">
+                    <strong>Staff</strong>
+                    <span>Manage department queues</span>
+                </button>
+                <button type="button" class="persona-btn" data-persona="admin" aria-pressed="false">
+                    <strong>Administrator</strong>
+                    <span>System-wide user &amp; SLA control</span>
+                </button>
+                <button type="button" class="persona-btn" data-persona="dept-head" aria-pressed="false">
+                    <strong>Dept Head</strong>
+                    <span>Faculty performance oversight</span>
+                </button>
+            </div>
+            <form id="login-form" novalidate>
+                <div class="field">
+                    <label for="email">University Email ID</label>
+                    <input id="email" name="email" type="email" placeholder="it25101078@my.sliit.lk" autocomplete="username" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)"/>
+                </div>
+                <div class="field">
+                    <label for="password">Password Credentials</label>
+                    <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="8" maxlength="72" required/>
+                </div>
+                <div class="form-banner" id="login-error" role="alert"></div>
+                <button class="btn btn-primary btn-block" type="submit">Access Workspace →</button>
+            </form>
+            <p class="subtext" style="margin-top:0.85rem"><button class="link-btn" type="button" id="forgot-toggle">Forgot password?</button></p>
+            <form id="forgot-form" hidden novalidate>
+                <div class="field">
+                    <label for="forgot-email">University email</label>
+                    <input id="forgot-email" type="email" placeholder="student@sliit.lk" required maxlength="150" pattern="[A-Za-z0-9._%+\-]+@(sliit\.lk|my\.sliit\.lk)"/>
+                </div>
+                <div class="form-banner" id="forgot-banner" role="status"></div>
+                <button class="btn btn-outline btn-block" type="submit">Generate reset token</button>
+            </form>
+            <div class="demo-logins">
+                <strong>Demo logins</strong>
+                <p>Password for every seeded role is <code>password</code>.</p>
+                <ul>
+                    <li>Student — <code>student@sliit.lk</code></li>
+                    <li>Lecturer — <code>lecturer@sliit.lk</code></li>
+                    <li>Staff — <code>staff@sliit.lk</code></li>
+                    <li>Admin — <code>admin@sliit.lk</code></li>
+                    <li>Dept Head — <code>head@sliit.lk</code></li>
+                </ul>
+                <p>Extra test student: <code>test@sliit.lk</code> / <code>Test1234</code></p>
+            </div>
+            <p class="subtext" style="margin-top:1rem">Students can <a href="/register">create an account</a>. Lecturer, staff, admin, and department-head accounts are issued by an administrator.</p>
+        </div>
+    </section>
+</main>
+<script src="/js/api.js"></script>
+<script src="/js/pro.js"></script>
+</body>
+</html>

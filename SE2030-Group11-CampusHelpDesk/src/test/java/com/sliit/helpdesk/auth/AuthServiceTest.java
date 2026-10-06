@@ -1,5 +1,7 @@
 package com.sliit.helpdesk.auth;
 
+// Auth Service Test is part of the campus help desk auth code.
+
 import com.sliit.helpdesk.auth.dto.RegisterRequest;
 import com.sliit.helpdesk.auth.model.Role;
 import com.sliit.helpdesk.auth.model.User;
@@ -51,6 +53,19 @@ class AuthServiceTest {
         assertThat(captor.getValue().getPassword()).isEqualTo("hashed");
         assertThat(saved.getFullName()).isEqualTo("Kodagoda Silva");
         assertThat(saved.getEmail()).isEqualTo("student@sliit.lk");
+    }
+
+    @Test
+    void registerRejectsNonStudentRole() {
+        RegisterRequest request = new RegisterRequest();
+        request.setFullName("Perera Gunawardena");
+        request.setEmail("new.lecturer@sliit.lk");
+        request.setPassword("password1");
+        request.setRole(Role.LECTURER);
+
+        assertThatThrownBy(() -> authService.register(request))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Only students");
     }
 
     @Test

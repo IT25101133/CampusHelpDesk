@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/layout :: head(${article.title})}"></head>
 <body>
 <div class="app-shell" th:if="${currentUser != null}">
@@ -15,6 +15,13 @@
             </p>
             <div class="card">
                 <p style="white-space: pre-wrap;" th:text="${article.content}">content</p>
+            </div>
+            <div style="margin-top: 1rem;" sec:authorize="hasAnyRole('STAFF','ADMIN')">
+                <a class="btn btn-primary" th:href="@{/knowledgebase/{id}/edit(id=${article.id})}">Edit</a>
+                <form th:action="@{/knowledgebase/{id}/delete(id=${article.id})}" method="post" style="display:inline"
+                      onsubmit="return confirm('Delete this article?');">
+                    <button class="btn btn-ghost" type="submit">Delete</button>
+                </form>
             </div>
         </main>
     </div>
