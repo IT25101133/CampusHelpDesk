@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Report')}"></head>
+<body>
+<div class="app-shell">
+    <aside th:replace="~{fragments/layout :: sidebar('reports')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topbar}"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1 th:text="${report.name}">Report</h1>
+                    <p th:text="'Generated ' + ${#temporals.format(report.createdAt, 'dd MMM yyyy HH:mm')}
+                        + (${report.createdBy != null} ? ' by ' + ${report.createdBy.fullName} : '')">Generated</p>
+                </div>
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <a class="btn btn-ghost btn-small" th:href="@{/reports/saved/{id}/edit(id=${report.id})}">Update</a>
+                    <form th:action="@{/reports/saved/{id}/rename(id=${report.id})}" method="post" style="display:flex;gap:0.5rem;">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <input type="text" name="name" th:value="${report.name}" required maxlength="150" style="padding:0.4rem 0.6rem;font-size:0.9rem;" placeholder="Report name"/>
+                        <button class="btn btn-secondary btn-small" type="submit">Rename</button>
+                    </form>
+                    <form th:action="@{/reports/saved/{id}/delete(id=${report.id})}" method="post" onsubmit="return confirm('Delete this report?');">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                    </form>
+                    <a class="btn btn-ghost" th:href="@{/reports/saved}">Back to reports</a>
+                </div>
+            </div>
+
+            <section class="card">
+                <h3>Filters</h3>
+                <table>
+                    <tr>
+                        <td>Department</td>
+                        <td th:text="${report.departmentLabel}">All departments</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td th:text="${report.statusLabel}">Any status</td>
+                    </tr>
+                    <tr>
+                        <td>Priority</td>
+                        <td th:text="${report.priorityLabel}">Any priority</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="card" style="margin-top: 1rem;">
+                <h3>Results</h3>
+                <table>
+                    <tr>
+                        <td>Tickets matched</td>
+                        <td th:text="${report.ticketCount}">0</td>
+                    </tr>
+                    <tr>
+                        <td>Resolved tickets</td>
+                        <td th:text="${report.resolvedCount}">0</td>
+                    </tr>
+                    <tr>
+                        <td>Average resolution time</td>
+                        <td th:text="${report.avgResolutionHours != null}
+                            ? ${report.avgResolutionHours} + ' hours' : 'No resolved tickets yet'">—</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="card" style="margin-top: 1rem;">
+                <h3>Matching tickets</h3>
+                <div class="empty" th:if="${tickets.isEmpty()}">No tickets match these filters.</div>
+                <div class="table-wrap" th:if="${!tickets.isEmpty()}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Title</th>
+                            <th>Department</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Resolved</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ticket : ${tickets}">
+                            <td><a th:href="@{/tickets/{id}(id=${ticket.id})}"
+                                   th:text="${ticket.ticketNumber}">HD-1</a></td>
+                            <td th:text="${ticket.title}">Title</td>
+                            <td th:text="${ticket.category != null and ticket.category.department != null}
+                                ? ${ticket.category.department} : '—'">IT</td>
+                            <td><span class="pill" th:classappend="${ticket.priority}"
+                                      th:text="${ticket.priority}">MED</span></td>
+                            <td><span class="pill" th:classappend="${ticket.status}"
+                                      th:text="${#strings.replace(ticket.status, '_', ' ')}">OPEN</span></td>
+                            <td th:text="${ticket.resolvedAt != null}
+                                ? ${#temporals.format(ticket.resolvedAt, 'dd MMM yyyy HH:mm')} : '—'">—</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
